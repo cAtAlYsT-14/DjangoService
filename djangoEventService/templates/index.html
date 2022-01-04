@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://www.schema.org/WebPage">
+    <head>
+        <title>Django Service</title>
+        <link type="text/css" href="{% static 'events/css/landing.css' %}" rel="stylesheet">
+   </head>
+<body>
+    <div class="event_buttons">
+        <button id="checkout" onclick="handleAjax(1)">Checkout</button>
+        <div id="action" style="display: none;">
+            <button id="subscribe" style="display: none;" onclick="handleAjax(2)">Subscribe</button>
+            <button id="unsubscribe" style="display: none;" onclick="handleAjax(4)">Unsubscribe</button>
+            <span>&emsp;</span>
+            <button class="btn-blue" onclick="handleBack()">Back</button>
+        </div>
+    </div>
+</body>
+<script>
+    const handleCheckout = () => {
+        document.getElementById("checkout").style.display = "none"
+        document.getElementById("action").style.display = "flex"
+        document.getElementById("subscribe").style.display = "flex"
+    }
+
+    const handleSubscribe = async () => {
+        document.getElementById("subscribe").style.display = "none"
+        document.getElementById("unsubscribe").style.display = "flex"
+    }
+
+    const handleUnsubscribe = async () => {
+        document.getElementById("unsubscribe").style.display = "none"
+        document.getElementById("subscribe").style.display = "flex"
+    }
+
+    const handleUIPart = (eventType) => {
+        switch(eventType){
+            case 1: handleCheckout() 
+                    break;
+            case 2: handleSubscribe() 
+                    break;
+            case 4: handleUnsubscribe()
+                    break;
+            default: alert("Invalid Event Type!")
+        }
+    }
+
+    const handleAjax = (eventType) => {
+        $.ajax({
+            url: '/events/',
+            type: 'POST',
+            data: {
+                'event_type': eventType
+            },
+            success: function (response) {
+                handleUIPart(eventType)
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert("Something went wrong. Try again later");
+            }
+        });
+    }
+
+    const handleBack = () => {
+        document.getElementById("action").style.display = "none"
+        document.getElementById("checkout").style.display = "block"
+        document.getElementById("subscribe").style.display = "none"
+        document.getElementById("unsubscribe").style.display = "none"
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+</html>
