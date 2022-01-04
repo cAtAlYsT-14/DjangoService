@@ -1,6 +1,8 @@
 # DjangoService
 
 I have used MYSQL in this Project.
+Create a table by this query or run django migrate command
+"CREATE TABLE `eventservice_event` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `created` datetime(6) NOT NULL, `modified` datetime(6) NULL, `event_type` smallint NOT NULL, `triggered_browser` varchar(50) NOT NULL);"
 
 Process to run the project:
 
