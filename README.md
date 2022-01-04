@@ -12,7 +12,7 @@ Process to run the project:
 6->pip install -r requirements/requirements.txt 
 7-> Add the db credentials in the .env file
 8->./manage.py migrate
-9->./manage.py runsevrer
+9->./manage.py runserver
 
 10-> You are now good to go!
 
